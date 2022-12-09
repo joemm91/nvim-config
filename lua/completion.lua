@@ -41,7 +41,7 @@ local config = {
 		['<C-k>'] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
 		['<C-j>'] = cmp.mapping(cmp.mapping.scroll_docs(1), { 'i', 'c' }),
 		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-		['<CR>'] = cmp.mapping.confirm { select = true },
+		['<CR>'] = cmp.mapping.confirm { select = false },
 	},
 	formatting = {
 		fields = { 'kind' , 'abbr', 'menu' },
@@ -63,7 +63,6 @@ local config = {
 		{ name = 'luasnip' },
 		{ name = 'calc' },
 		{ name = 'path' },
-		{ name = 'fonts', option = { space_filter = '-', }, },
 		{ name = 'lua-latex-symbols', option = { cache = true, }, },
 		{ name = 'emoji' },
 	},
@@ -75,6 +74,7 @@ local config = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
+	preselect = cmp.PreselectMode.None,
 }
 
 require_map('luasnip/loaders/from_vscode', 'Failed to load snippets', function(snippets)
@@ -110,3 +110,5 @@ require_map('luasnip', 'Failed to load luasnip', function(luasnip)
 end)
 
 cmp.setup(config)
+
+

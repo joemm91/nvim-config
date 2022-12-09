@@ -45,7 +45,7 @@ local options = {
 	termguicolors = true,
 	-- bigger command bar
 	cmdheight = 2,
-	
+
 	-- enable syntax highlighting
 	syntax = 'on',
 	-- internal encoding
@@ -82,9 +82,9 @@ local options = {
 }
 
 -- have neovim check if the terminal size changed when taking control
-vim.cmd [[autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"]]
+vim.cmd([[autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"]])
 
 -- takes the options defined in options and sets them
-for opt, val in pairs(options) do 
+for opt, val in pairs(options) do
 	vim.opt[opt] = val
 end

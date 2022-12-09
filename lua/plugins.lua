@@ -68,6 +68,14 @@ else
 				'neovim/nvim-lspconfig',
 				config = function() require('lsp') end
 			})
+			use({
+				'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+				config = function()
+					require('lsp_lines').setup({})
+					vim.diagnostic.config({ virtual_lines = true })
+					vim.keymap.set("", "<leader>L", require('lsp_lines').toggle, { desc = 'toggle lsp_lines'} )
+				end,
+			})
 
 			-- latex
 			use({
@@ -123,8 +131,6 @@ else
 				'amarakon/nvim-cmp-lua-latex-symbols',
 				-- emoji input
 				'hrsh7th/cmp-emoji',
-				-- installed fonts
-				'amarakon/nvim-cmp-fonts',
 			})
 			-- Appearance
 			local devicons = 'kyazdani42/nvim-web-devicons'
@@ -231,11 +237,23 @@ else
 					vim.notify = notify
 				end
 			})
-			-- github colorscheme
-			use({
-				'projekt0n/github-nvim-theme',
-				config = function() require('github-theme').setup({ dark_float = true, }) end
-			})
+
+			-- colorscheme
+			use {
+				'catppuccin/nvim',
+				as = 'catppuccin',
+				config = function ()
+					require('catppuccin').setup({
+						transparent_background = true,
+						flavour = 'frappe' ,
+						styles = {
+							comments = { },
+							conditionals = { },
+						}
+					})
+					vim.api.nvim_command('colorscheme catppuccin-frappe')
+				end
+			}
 
 			-- status line
 			local lualine = 'nvim-lualine/lualine.nvim'
@@ -244,7 +262,7 @@ else
 				config = function() require('lualine').setup({
 					options = {
 						icons_enabled = true,
-						theme = 'nord',
+						theme = 'auto',
 						refresh = { statusline = 1000, },
 						disabled_filetypes = { 'packer', 'NvimTree', },
 					},
@@ -268,7 +286,11 @@ else
 			use({
 				'kdheepak/tabline.nvim',
 				requires = { { lualine, devicons }, },
-				config = function() require('tabline').setup({}) end,
+				config = function() require('tabline').setup({
+					options = {
+						section_separators = { ' ', ' ' },
+					},
+				}) end,
 			})
 			-- tree plugin
 			use({
